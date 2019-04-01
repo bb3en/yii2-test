@@ -1,0 +1,45 @@
+version: '2'
+services:
+  yii2:
+    image: yiisoftware/yii2-php:7.2-apache
+    container_name: "yii2"
+    volumes:
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      - ./:/app:delegated
+    ports:
+      - '80:80'
+    links:
+      - mysql-database
+    networks:
+      - net-mysql
+    command: sh -c 'yii serve 0.0.0.0:80'
+
+  mysql-database:
+    image: mysql:5.7
+    container_name: mysql.db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "secret9527"
+      MYSQL_DATABASE: "yii2"
+      MYSQL_USER: "test"
+      MYSQL_PASSWORD: "test1234"
+    networks:
+      - net-mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      MYSQL_USER: "test"
+      MYSQL_PASSWORD: "test1234"
+      MYSQL_DATABASE: "yii2"
+      MYSQL_ROOT_PASSWORD: "secret9527"
+      PMA_HOST: mysql-database
+    networks:
+      - net-mysql
+
+networks:
+  net-mysql:
