@@ -23,24 +23,8 @@ class PostsController extends ActiveController
         //         QueryParamAuth::className(),
         //     ],
         // ];
+        
         return $behaviors;
     }
 
-    public function actionCreate()
-    {
-
-        $model = new Enquiry();
-        return Yii::$app->getRequest()->getBodyParams();
-
-        if ($model->load(Yii::$app->getRequest()->getBodyParams(), '') && $model->validate()) {
-
-            $model->slug = \common\components\Helper::slugify($model->title);
-            $model->user_id = Yii::$app->user->id;
-            $model->save();
-            //mail functionality
-            return true;
-        }
-        return $model;
-
-    }
 }

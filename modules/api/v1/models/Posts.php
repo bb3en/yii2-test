@@ -3,7 +3,7 @@
 namespace app\modules\api\v1\models;
 
 use Yii;
-use app\components\db\ActiveRecord;
+
 
 /**
  * This is the model class for table "post".
