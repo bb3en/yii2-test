@@ -3,6 +3,11 @@
 namespace app\modules\api\v1\controllers;
 
 use yii\rest\ActiveController;
+use yii\filters\auth\CompositeAuth;
+use yii\filters\auth\HttpBasicAuth;
+use yii\filters\auth\HttpBearerAuth;
+use yii\filters\auth\QueryParamAuth;
+use yii\db\BaseActiveRecord;
 
 class PostsController extends ActiveController
 {
@@ -16,14 +21,15 @@ class PostsController extends ActiveController
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-        // token 验证  请按需开启
-        // $behaviors['authenticator'] = [
-        //     'class' => CompositeAuth::className(),
-        //     'authMethods' => [
-        //         QueryParamAuth::className(),
-        //     ],
-        // ];
-        
+        $behaviors['authenticator'] = [
+            'class' => CompositeAuth::className(),
+            'authMethods' => [
+                HttpBasicAuth::className(),
+                QueryParamAuth::className(),
+                HttpBearerAuth::className(),
+            ],
+        ];
+
         return $behaviors;
     }
 

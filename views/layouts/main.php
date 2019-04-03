@@ -42,9 +42,10 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
+            Yii::$app->user->isGuest ? '':['label' => 'API', 'url' => ['/api/manager']], 
             Yii::$app->user->isGuest ? (
                     ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
+            ) : ( 
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
@@ -52,8 +53,10 @@ AppAsset::register($this);
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
-                . '</li>'
-            )
+                . '</li>' 
+
+                ),
+                
         ],
     ]);
     NavBar::end();
@@ -70,7 +73,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; AdGeek IT <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

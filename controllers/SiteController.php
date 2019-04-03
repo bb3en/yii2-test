@@ -10,34 +10,35 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
+use app\models\ApiForm;
 
 class SiteController extends Controller
 {
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
+    // public function behaviors()
+    // {
+    //     return [
+    //         'access' => [
+    //             'class' => AccessControl::className(),
+    //             'only' => ['logout'],
+    //             'rules' => [
+    //                 [
+    //                     'actions' => ['logout'],
+    //                     'allow' => true,
+    //                     'roles' => ['@'],
+    //                 ],
+    //             ],
+    //         ],
+    //         'verbs' => [
+    //             'class' => VerbFilter::className(),
+    //             'actions' => [
+    //                 'logout' => ['post'],
+    //             ],
+    //         ],
+    //     ];
+    // }
 
     /**
      * {@inheritdoc}
@@ -65,22 +66,6 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    public function actionAddAdmin() {
-        $model = User::find()->where(['username' => 'test'])->one();
-        if (empty($model)) {
-            $user = new User();
-            $user->username = 'test';
-            $user->email = 'test@test';
-            $user->setPassword('test');
-            $user->generateAuthKey();
-            if ($user->save()) {
-                echo 'good';
-            }
-        }
-    }
-
-    //...
- 
     public function actionSignup()
     {
         $model = new SignupForm();
@@ -105,23 +90,62 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+
+
         if (!\Yii::$app->user->isGuest) {
 
             return $this->goHome();
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            
+        if ($model->load(Yii::$app->request->post())) {
+            $model->login();
+
             return $this->goBack();
 
-            //return $this->redirect($model->username);
         } else {
 
             return $this->render('login', [
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionApi()
+    {
+        
+        if (\Yii::$app->user->isGuest) {
+
+            return $this->goHome();
+        }
+        $model = new ApiForm();
+        return $this->render('api', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionUpdateapitoken()
+    {
+        
+        if (\Yii::$app->user->isGuest) {
+
+            return $this->goHome();
+        }
+        $model = new ApiForm();
+        $result = '';
+        if($model->updateAccessToken() > 0 ) {
+            
+            $result = 'Update Sucess';
+        }
+        else {
+            $result = 'Update Fail';      
+        }
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        return [
+            'result' => $result,
+            'token' => $model->getAccessToken(),
+        ];
     }
 
     /**

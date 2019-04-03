@@ -2,11 +2,13 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$rotues = require __DIR__ . '/routes.php';
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'homeUrl'=>'index',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -26,9 +28,8 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
+            'class' => 'yii\web\User',
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-            'authTimeout' => 3600,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -40,7 +41,6 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
-
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -58,8 +58,8 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'enableStrictParsing' => true,
-            'rules' => require(__DIR__ . '/routes.php'),
+            'enableStrictParsing' => false,
+            'rules' => $rotues,
         ],
         
     ],
@@ -72,7 +72,7 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['127.0.0.1', '::1','192.168.1.31','192.168.1.*'],
+        'allowedIPs' => ['127.0.0.1', '::1','192.168.1.31','192.168.1.*','192.168.16.1'],
     ];
 
     $config['bootstrap'][] = 'gii';
