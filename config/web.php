@@ -19,6 +19,10 @@ $config = [
         ]
     ], 
     'components' => [
+        'formatter' => [
+            'dateFormat' => 'yyyy-MM-dd',
+            'datetimeFormat' => 'yyyy-MM-dd HH:mm:ss',
+        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
         ],

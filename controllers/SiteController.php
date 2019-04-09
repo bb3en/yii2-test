@@ -111,42 +111,7 @@ class SiteController extends Controller
         }
     }
 
-    public function actionApi()
-    {
-        
-        if (\Yii::$app->user->isGuest) {
-
-            return $this->goHome();
-        }
-        $model = new ApiForm();
-        return $this->render('api', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionUpdateapitoken()
-    {
-        
-        if (\Yii::$app->user->isGuest) {
-
-            return $this->goHome();
-        }
-        $model = new ApiForm();
-        $result = '';
-        if($model->updateAccessToken() > 0 ) {
-            
-            $result = 'Update Sucess';
-        }
-        else {
-            $result = 'Update Fail';      
-        }
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        return [
-            'result' => $result,
-            'token' => $model->getAccessToken(),
-        ];
-    }
+  
 
     /**
      * Logout action.

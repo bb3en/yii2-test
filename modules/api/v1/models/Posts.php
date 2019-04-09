@@ -31,6 +31,7 @@ class Posts extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 255],
+            [['own_id'],'integer']
         ];
     }
 
@@ -43,6 +44,7 @@ class Posts extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Title',
             'content' => 'Content',
+            'own_id' => 'OwnID',
         ];
     }
 }

@@ -45,4 +45,5 @@ class m190403_112322_add_rbac_updateOwnPost_rule extends Migration
         //$this->delete('auth_rule', ['name' => 'isAuthor']);
 
     }
+    
 }
