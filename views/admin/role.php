@@ -4,10 +4,6 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-
-use yii\bootstrap\ActiveForm;
-
-use yii\bootstrap\Modal;
 use yii\grid\GridView;
 
 use app\assets\RbacAsset;
@@ -17,35 +13,42 @@ RbacAsset::register($this);
 $this->title = 'RBAC-Role Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?= html::button('Create Role',[
-    'value'=>Url::to('create-role-popup'),
-    'class' => 'btn btn-success',
-    'id' => 'createRole'
-    ]); ?>
 
-<?php
-    Modal::begin([
-        'header' => '<h4>Create Role</h4>',
-        'id' => 'modalCreateRole' ,
-        'size' => 'modal-lg',
-    ]);
-    
-    echo "<div id='modalCreateRoleContent'></div>";
 
-    Modal::end();
-?>
+<button type="button" id="createRole" class="btn btn-success" value="create-role-popup">Create Role</button>
 
-<?php
-    Modal::begin([
-        'header' => '<h4>Edit Role</h4>',
-        'id' => 'modalEditRole' ,
-        'size' => 'modal-lg',
-    ]);
-    
-    echo "<div id='modalEditRoleContent'></div>";
 
-    Modal::end();
-?>
+<!-- Modal -->
+<div id="modalCreateRole" class="fade modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Create Role</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="modalCreateRoleContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
+
+<!-- Modal -->
+<div id="modalEditRole" class="fade modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Edit Role</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="modalEditRoleContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,       
@@ -70,4 +73,3 @@ $this->params['breadcrumbs'][] = $this->title;
      ],
 ]) ?>
 
-</div>

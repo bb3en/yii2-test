@@ -5,9 +5,6 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-use yii\bootstrap\ActiveForm;
-
-use yii\bootstrap\Modal;
 use yii\grid\GridView;
 use app\assets\RbacAsset;
 RbacAsset::register($this);
@@ -16,19 +13,15 @@ $this->title = 'RBAC-Permission Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?= html::button('Create Permission',[
-    'value'=>Url::to('create-permission-popup'),
-    'class' => 'btn btn-success',
-    'id' => 'createPermission'
-    ]); ?>
+<button type="button" id="createPermission" class="btn btn-success" value="create-permission-popup">Create Permission</button>
 
 <!-- Modal -->
 <div id="modalCreatePermission" class="fade modal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4>Create Permission</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
                 <div id="modalCreatePermissionContent"></div>
@@ -38,17 +31,23 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <!-- End Modal -->
 
-<?php
-    Modal::begin([
-        'header' => '<h4>Edit Permission</h4>',
-        'id' => 'modalEditPermission' ,
-        'size' => 'modal-lg',
-    ]);
-    
-    echo "<div id='modalEditPermissionContent'></div>";
 
-    Modal::end();
-?>
+<!-- Modal -->
+<div id="modalEditPermission" class="fade modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h4>Edit Permission</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="modalEditPermissionContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,       
@@ -73,4 +72,3 @@ $this->params['breadcrumbs'][] = $this->title;
      ],
 ]) ?>
 
-</div>

@@ -1,13 +1,8 @@
 <?php
 
-/* @var $model app\models\ApiForm */
-
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-use yii\bootstrap\ActiveForm;
-
-use yii\bootstrap\Modal;
 use yii\grid\GridView;
 
 use app\assets\RbacAsset;
@@ -26,8 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4>Create Assignment</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
             </div>
             <div class="modal-body">
                 <div id="modalCreateAssignmentContent"></div>
@@ -38,15 +34,25 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- End Modal -->
 <br /><br />
 
-<table id="assignmentTable" class="table table-striped table-bordered" style="width:100%">
-    <thead>
-        <tr>
-            <th>User ID</th>
-            <th>User Name</th>
-            <th>Role</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-</table>
 
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Assignment DataTable</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <table id="assignmentTable" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>User Name</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

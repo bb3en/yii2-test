@@ -1,6 +1,7 @@
 <?php
 
 namespace app\modules\api\v1\controllers;
+
 use yii;
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
@@ -40,96 +41,55 @@ class RbacRoleChildController extends ActiveController
     }
     public function actions()
     {
-		$actions = parent::actions();
+        $actions = parent::actions();
 
-	    unset($actions['create'],$actions['delete'],$actions['view']);
-	    
-	    return $actions;
+        unset($actions['create'], $actions['delete'], $actions['view'], $actions['index']);
 
+        return $actions;
     }
 
     public function actionCreate()
-    {   
-        try {
-
-            $roleChild = new RbacRoleChild();
-            $parent = (string)ArrayHelper::getValue($_POST, 'parent', 'none');
-            $child = (string)ArrayHelper::getValue($_POST, 'child', 'none');
-            if(!RbacRoleChild::isExistRoleChild($parent, $child)) {
-                $roleChild->parent = $parent;
-                $roleChild->child = $child;
-                $result = $roleChild->save();
-            } else {
-                return null;
-            }
- 
-       } catch (DbException $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => ''
-            ];
-        } catch (Exception $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => $e->getMessage()
-            ];
+    {
+        $roleChild = new RbacRoleChild();
+        $parent = (string)ArrayHelper::getValue($_POST, 'parent', 'none');
+        $child = (string)ArrayHelper::getValue($_POST, 'child', 'none');
+        if (!RbacRoleChild::isExistRoleChild($parent, $child)) {
+            $roleChild->parent = $parent;
+            $roleChild->child = $child;
+            $result = $roleChild->save();
+        } else {
+            return null;
         }
+
+
         return $result;
     }
 
     public function actionDelete($parent)
-    {   
-        try{
-            $_POST = Yii::$app->getRequest()->getBodyParams();
-            
-            //$parent = (string)ArrayHelper::getValue($_POST, 'parent', 'none');
-            $child = (string)ArrayHelper::getValue($_POST, 'child', 'none');
+    {
 
-            if(RbacRoleChild::isExistRoleChild($parent, $child)) {
-                $roleChild = RbacRoleChild::findByBoth($parent, $child);
-                $result = $roleChild->delete();
-            } else {
-                return null;
-            }
+        $_POST = Yii::$app->getRequest()->getBodyParams();
 
-       } catch (DbException $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => ''
-            ];
-        } catch (Exception $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => $e->getMessage()
-            ];
+        //$parent = (string)ArrayHelper::getValue($_POST, 'parent', 'none');
+        $child = (string)ArrayHelper::getValue($_POST, 'child', 'none');
+
+        if (RbacRoleChild::isExistRoleChild($parent, $child)) {
+            $roleChild = RbacRoleChild::findByBoth($parent, $child);
+            $result = $roleChild->delete();
+        } else {
+            return null;
         }
+
         return $result;
     }
 
     public function actionView($parent)
-    {   
-        try {
-            $roleChild = RbacRoleChild::findByParent($parent);
+    {
 
-            $result = $roleChild;
+        $roleChild = RbacRoleChild::findByParent($parent);
 
-       } catch (DbException $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => ''
-            ];
-        } catch (Exception $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => $e->getMessage()
-            ];
-        }
+        $result = $roleChild;
+
         return $result;
     }
 }

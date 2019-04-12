@@ -31,6 +31,9 @@ class AppAsset extends AssetBundle
         // 'adminLTE/bower_components/bootstrap-daterangepicker/daterangepicker.css',
         // 'adminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
         'css/dataTables.bootstrap4.min.css',
+        'sb-admin/css/sb-admin-2.min.css',
+        'sb-admin/vendor/fontawesome-free/css/all.min.css',
+
         'css/site.css',
     ];
     public $js = [
@@ -52,14 +55,23 @@ class AppAsset extends AssetBundle
         // 'adminLTE/bower_components/fastclick/lib/fastclick.js',  
         // 'adminLTE/dist/js/adminlte.min.js',
         // 'adminLTE/dist/js/pages/dashboard.js', 
+        // 'sb-admin/sb-admin/vendor/jquery/jquery.min.js"',
+        'sb-admin/vendor/bootstrap/js/bootstrap.bundle.js',
+        'sb-admin/vendor/jquery-easing/jquery.easing.min.js',
+        'sb-admin/js/sb-admin-2.min.js',
+        'sb-admin/vendor/chart.js/Chart.min.js',
+        // 'sb-admin/js/demo/chart-area-demo.js',
+        // 'sb-admin/js/demo/chart-pie-demo.js',
         'js/jquery.dataTables.min.js',
         'js/dataTables.bootstrap4.min.js',
         'js/share.js',
         'js/user.js',
     ];
+
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        //'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap4\BootstrapAsset',
        
     ];
 }

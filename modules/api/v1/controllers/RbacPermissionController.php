@@ -51,96 +51,48 @@ class RbacPermissionController extends ActiveController
 
     public function actionCreate()
     {
-        try {
-            $permission = new RbacPermission();
-            $permission->name = (string)ArrayHelper::getValue($_POST, 'name', 'none');
-            $permission->description = (string)ArrayHelper::getValue($_POST, 'description', 'none');
-            $permission->type = 2;
-            // $permission->created_at = time();
-            // $permission->updated_at = time();
-            $result = $permission->save();
-        } catch (DbException $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => ''
-            ];
-        } catch (Exception $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => $e->getMessage()
-            ];
-        }
+
+        $permission = new RbacPermission();
+        $permission->name = (string)ArrayHelper::getValue($_POST, 'name', 'none');
+        $permission->description = (string)ArrayHelper::getValue($_POST, 'description', 'none');
+        $permission->type = 2;
+        // $permission->created_at = time();
+        // $permission->updated_at = time();
+        $result = $permission->save();
+
         return $result;
     }
 
     public function actionUpdate($name)
     {
-        try {
-            $_POST = Yii::$app->getRequest()->getBodyParams();
-            $permission = RbacPermission::findByName($name);
-            $permission->name = (string)ArrayHelper::getValue($_POST, 'newName', 'none');
-            $permission->description = (string)ArrayHelper::getValue($_POST, 'description', 'none');
-            // $permission->updated_at = time();
-            $result = $permission->save();
-        } catch (DbException $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => ''
-            ];
-        } catch (Exception $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => $e->getMessage()
-            ];
-        }
+
+        $_POST = Yii::$app->getRequest()->getBodyParams();
+        $permission = RbacPermission::findByName($name);
+        $permission->name = (string)ArrayHelper::getValue($_POST, 'newName', 'none');
+        $permission->description = (string)ArrayHelper::getValue($_POST, 'description', 'none');
+        // $permission->updated_at = time();
+        $result = $permission->save();
+
         return $result;
     }
 
     public function actionDelete($name)
     {
-        try {
-            $permission = RbacPermission::findByName($name);
-            $permission->delete();
-            $result = $permission;
-        } catch (DbException $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => ''
-            ];
-        } catch (Exception $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => $e->getMessage()
-            ];
-        }
+
+        $permission = RbacPermission::findByName($name);
+        $permission->delete();
+        $result = $permission;
+
         return $result;
     }
 
     public function actionView($name)
     {
-        try {
-            $permission = RbacPermission::findByName($name);
 
-            $result = $permission;
-        } catch (DbException $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => ''
-            ];
-        } catch (Exception $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => $e->getMessage()
-            ];
-        }
+        $permission = RbacPermission::findByName($name);
+
+        $result = $permission;
+
         return $result;
     }
 }

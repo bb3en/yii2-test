@@ -111,42 +111,12 @@ class AdminController extends Controller
 
     public function actionRoleChild()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => RbacRoleChild::find(),
-            'pagination' => [
-                'pageSize' => 8,
-            ]
-        ]);
-
-        return $this->render('role-child', [
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('role-child');
     }
 
     public function actionAssignment()
     {
-
-        $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT user.id, user.username, auth_assignment.item_name as role, user.email ' .
-                'FROM `auth_assignment` ,`user` ' .
-                'WHERE auth_assignment.user_id = user.id ',
-        ]);
-        // $query = RbacAssignment::find();
-
-        // $query->select('auth_assignment.*, user.username');
-
-        // $query->joinWith(['user']);
-
-        // $dataProvider = new ActiveDataProvider([
-        //     'query' => $query,
-        //     'pagination' => [
-        //        'pageSize' => 8,
-        //    ]
-        // ]);
-
-        return $this->render('assignment', [
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('assignment');
     }
 
 

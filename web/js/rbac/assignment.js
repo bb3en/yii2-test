@@ -71,7 +71,7 @@ function fillAssignmentUserNameDropList() {
     
     ajaxRequest(url, '', function (res) {
 
-        fillDropList(res, 'userNameSelect', 'username', 'id');
+        fillDropList(res.data, 'userNameSelect', 'username', 'id');
     }, 'GET');
 
 };
@@ -79,7 +79,7 @@ function fillAssignmentUserNameDropList() {
 function fillAssignmentRoleDropList() {
     var url = "http://localhost/api/v1/rbac/role";
     ajaxRequest(url, '', function (res) {
-        fillDropList(res, 'roleSelect', 'name', 'name');
+        fillDropList(res.data, 'roleSelect', 'name', 'name');
     }, 'GET');
 };
 

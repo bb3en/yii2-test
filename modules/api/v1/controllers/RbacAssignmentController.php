@@ -42,7 +42,7 @@ class RbacAssignmentController extends ActiveController
 
     public function actions()
     {
-        
+
         $actions = parent::actions();
         yii::$app->response->format = 'restful';
         unset($actions['create'],
@@ -56,83 +56,39 @@ class RbacAssignmentController extends ActiveController
 
     public function actionIndex()
     {
-        try {
-            
-            $result =  RbacAssignment::findWithUser();
-
-        } catch (DbException $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => ''
-            ];
-        } catch (Exception $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => $e->getMessage()
-            ];
-        }
-
-        return $result;
+        return RbacAssignment::findWithUser();
     }
 
     public function actionCreate()
     {
-        try {
-            $userId = (string)ArrayHelper::getValue($_POST, 'userId', '');
-            $role = (string)ArrayHelper::getValue($_POST, 'role', '');
-            if (empty($userId) || empty($role))
-                throw new Exception('');
 
-            if(RbacAssignment::isExistAssignment($userId)){
-                return null;
-            }
-            else{
-                $assignment = new RbacAssignment();
-                $assignment->user_id = $userId;
-                $assignment->item_name = $role;
-                $assignment->created_at = time();
-                $assignment->save();
-                $result = $assignment;
-            }
+        $userId = (string)ArrayHelper::getValue($_POST, 'userId', '');
+        $role = (string)ArrayHelper::getValue($_POST, 'role', '');
+        if (empty($userId) || empty($role))
+            throw new Exception('');
 
-            // $result = $assignment->save();
-        } catch (DbException $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => ''
-            ];
-        } catch (Exception $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => $e->getMessage()
-            ];
+        if (RbacAssignment::isExistAssignment($userId)) {
+            return null;
+        } else {
+            $assignment = new RbacAssignment();
+            $assignment->user_id = $userId;
+            $assignment->item_name = $role;
+            $assignment->created_at = time();
+            $assignment->save();
+            $result = $assignment;
         }
+
+
         return $result;
     }
 
     public function actionDelete($id)
     {
-        try {
-            $assignment = RbacAssignment::findByUserId($id);
-            $assignment->delete();
-            $result = $assignment;
-        } catch (DbException $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => ''
-            ];
-        } catch (Exception $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => $e->getMessage()
-            ];
-        }
+
+        $assignment = RbacAssignment::findByUserId($id);
+        $assignment->delete();
+        $result = $assignment;
+
         return $result;
     }
 }

@@ -1,15 +1,5 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model app\models\ContactForm */
-
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
-use yii\captcha\Captcha;
-use yii\helpers\ArrayHelper;
-use app\modules\api\v1\models\RbacRole;
-use app\models\User;
 // use app\assets\RbacAsset;
 
 // RbacAsset::register($this);

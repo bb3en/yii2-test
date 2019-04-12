@@ -63,16 +63,16 @@ class ApiForm extends Model
         $userModel = User::findOne(['access_token' => $token]);
         
         if($userModel == null) {       
-            throw New UnauthorizedHttpException;
+            return false;
         }
         if($userModel->access_token == "") {
   
-            throw New UnauthorizedHttpException;
+            return false;
         }
 
         if($userModel->access_token_at + 86400 <= time()) {
  
-            throw New UnauthorizedHttpException;
+           return false;
         }
 
         return true;

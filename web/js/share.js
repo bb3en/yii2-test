@@ -1,6 +1,5 @@
 var ajaxRequest = function (url, data, callback, method) {
-    var token = 'qMcfUBbJvRrnl1BUowcMEPDzY8tTi8aD_1554710625';
-
+    var token = 'hLRKlaLodVLEqo0qicgZIkQ-RRtS4qN-_1555056078';
     $.ajax({
         url: url,
         headers: {

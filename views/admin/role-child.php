@@ -13,27 +13,27 @@ use yii\grid\GridView;
 use app\assets\RbacAsset;
 RbacAsset::register($this);
 
-
 $this->title = 'RBAC-Role-Child Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?= html::button('Create RoleChild',[
-    'value'=>Url::to('create-role-child-popup'),
-    'class' => 'btn btn-success',
-    'id' => 'createRoleChild'
-    ]); ?>
 
-<?php
-    Modal::begin([
-        'header' => '<h4>Create Role-Child</h4>',
-        'id' => 'modalCreateRoleChild' ,
-        'size' => 'modal-lg',
-    ]);
-    
-    echo "<div id='modalCreateRoleChildContent'></div>";
+<button type="button" id="createRoleChild" class="btn btn-success" value="create-role-child-popup">Create RoleChild</button>
 
-    Modal::end();
-?>
+<!-- Modal -->
+<div id="modalCreateRoleChild" class="fade modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4>Create Role-Child</h4>
+            </div>
+            <div class="modal-body">
+                <div id="modalCreateRoleChildContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,       
@@ -53,4 +53,4 @@ $this->params['breadcrumbs'][] = $this->title;
      ],
 ]) ?>
 
-</div>
+
