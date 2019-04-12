@@ -8,10 +8,13 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 
+use app\assets\RbacAsset;
+RbacAsset::register($this);
+
 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="admin-update-user-popup">
+<div class="admin-create-permission-popup">
 
     <div class="row">
             <div class="col-lg-5">

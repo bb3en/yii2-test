@@ -4,16 +4,37 @@ namespace app\modules\api\v1\models;
 
 use Yii;
 
-
 /**
- * This is the model class for table "post".
+ * User model
  *
- * @property int $id
- * @property string $title
- * @property string $content
+ * @property integer $id
+ * @property string $username
+ * @property string $password_hash
+ * @property string $password_reset_token
+ * @property string $email
+ * @property string $auth_key
+ * @property string $access_token
+ * @property integer $access_token_at
+ * @property integer $status
+ * @property integer $created_at
+ * @property integer $updated_at
+ * @property string $password write-only password
  */
 class Users extends \yii\db\ActiveRecord
 {
+
+    // public function behaviors()
+    // {
+    //     return [
+    //         [
+    //             'class' => TimestampBehavior::className(),
+    //             'attributes' => [
+    //                 ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+    //                 ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+    //             ],
+    //         ],
+    //     ];
+    // }
     /**
      * {@inheritdoc}
      */

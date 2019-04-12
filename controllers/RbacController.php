@@ -8,6 +8,11 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\helpers\ArrayHelper;
 
+use app\modules\api\v1\models\RbacAssignment;
+use app\modules\api\v1\models\RbacPermission;
+use app\modules\api\v1\models\RbacRole;
+use app\modules\api\v1\models\RbacRoleChild;
+
 
 class RbacController extends Controller
 {
@@ -82,9 +87,29 @@ class RbacController extends Controller
         return $this->goHome();
     }
     
-    public function actionUpdate()
+    public function actionUpdatePermission()
     {
         
+        if (Yii::$app->request->isAjax) 
+        {
+            $name  = (string)ArrayHelper::getValue($_POST,'name', 'null');
+            $newName  = (string)ArrayHelper::getValue($_POST,'newName', 'null');
+            $description  = (string)ArrayHelper::getValue($_POST,'description', 'null');
+            $model = AuthItem::findByName($name);
+            $model->name = $newName;
+            $model->description = $description;
+            $model->updated_at = time();
+            if($model->save())
+            {
+                return 'OK';
+            }
+            else
+            {
+                return 'NG';
+            }
+
+        }
+        return $this->goHome();
     }
 
     public function actionCreate()

@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\base\Exception;
 
 /**
  * LoginForm is the model behind the login form.
@@ -50,7 +51,7 @@ class ApiForm extends Model
         $userModel->access_token = $newToken;
         $userModel->access_token_at = $nowTime;
         $saveCount = $userModel->save();
-        if($saveCount>0){
+        if($saveCount>0) {
             $this->accessToken = $userModel->access_token;
             $this->accessTokenAt = $userModel->access_token_at;
         }
@@ -61,16 +62,17 @@ class ApiForm extends Model
     {
         $userModel = User::findOne(['access_token' => $token]);
         
-        if($userModel == null){
-            return false;
+        if($userModel == null) {       
+            throw New UnauthorizedHttpException;
         }
-        if($userModel->access_token == ""){
-            return false;
+        if($userModel->access_token == "") {
+  
+            throw New UnauthorizedHttpException;
         }
 
-        if($userModel->access_token_at + 86400 <= time()){
+        if($userModel->access_token_at + 86400 <= time()) {
  
-            return false;
+            throw New UnauthorizedHttpException;
         }
 
         return true;

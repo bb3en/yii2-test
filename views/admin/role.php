@@ -10,6 +10,10 @@ use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
 use yii\grid\GridView;
 
+use app\assets\RbacAsset;
+RbacAsset::register($this);
+
+
 $this->title = 'RBAC-Role Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,14 +35,39 @@ $this->params['breadcrumbs'][] = $this->title;
     Modal::end();
 ?>
 
+<?php
+    Modal::begin([
+        'header' => '<h4>Edit Role</h4>',
+        'id' => 'modalEditRole' ,
+        'size' => 'modal-lg',
+    ]);
+    
+    echo "<div id='modalEditRoleContent'></div>";
+
+    Modal::end();
+?>
+
 <?= GridView::widget([
     'dataProvider' => $dataProvider,       
-    //  'columns' => [
-    //     'id',
-    //      'name',
-    //      'created_at:datetime',
-    //     // ...
-    //  ],
+    'columns' => [
+        'name',
+         'description',
+         'rule_name',
+         'created_at:datetime',
+         'updated_at:datetime',
+         [
+            'class' => 'yii\grid\ActionColumn',
+            'template' => '{update} {delete} ',
+            'buttons' => [
+                'update'=>function ($url, $model, $key) {
+                    return Html::button('edit', [ 'value'=>Url::to('update-role-popup?name='. $model->name),'class' => 'btn btn-xs btn-warning role-edit-btn','data-name' => $model->name ]);
+                },
+                'delete'=>function ($url, $model, $key) {
+                    return Html::button('delete', [ 'class' => 'btn btn-xs btn-danger role-delete-btn','data-id' => $model->name,'data-name' => $model->name ]);
+                }
+            ]
+        ],
+     ],
 ]) ?>
 
 </div>

@@ -87,12 +87,11 @@ class User extends ActiveRecord implements IdentityInterface
     public static function findIdentityByAccessToken($token, $type = null)
     {
         $apiModel = new ApiForm();
-        
-        if($apiModel->isValidApiToken($token)){
+
+        if($apiModel->isValidApiToken($token)) {
 
             return static::findOne(['access_token' => $token]);
-        }
-        else{
+        } else {
             return null;
         }
    

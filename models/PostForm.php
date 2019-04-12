@@ -24,14 +24,6 @@ class PostForm extends Model
         }
     }
 
-    /**
-     * Get "API" access token
-     */  
-    public function updatePost()
-    {    
-        if (\Yii::$app->user->can('updatePost', ['post' => $post])) {
-            // update post
-        }
-    }
+
     
 }

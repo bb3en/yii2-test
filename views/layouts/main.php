@@ -42,7 +42,7 @@ AppAsset::register($this);
             ['label' => 'Home', 'url' => ['/site/index']],
             Yii::$app->user->isGuest ? '':['label' => 'API', 'url' => ['/api/manager']],
             Yii::$app->user->isGuest ? '':['label' => 'Posts', 'url' => ['/post']],
-            Yii::$app->user->isGuest ? '':
+            Yii::$app->user->can('admin') ? 
             [
                 'label' => 'Admin',
                 'items' => [
@@ -52,10 +52,10 @@ AppAsset::register($this);
                     ['label' => 'Permission', 'url' => '/admin/permission'],                   
                     ['label' => 'Role', 'url' => '/admin/role'],
                     ['label' => 'Role-Child', 'url' => '/admin/role-child'],
-                    ['label' => 'Assign', 'url' => '/admin/assign'],
+                    ['label' => 'Assignment', 'url' => '/admin/assignment'],
  
                 ],
-            ],
+            ] : '',
             Yii::$app->user->isGuest ? (
                     ['label' => 'Login', 'url' => ['/site/login']]
             ) : ( 

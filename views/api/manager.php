@@ -18,8 +18,8 @@ function updateAccessToken(){
                  _csrf : '<?=Yii::$app->request->getCsrfToken()?>'
              },
        success: function (result) {
-          document.getElementById('accessToken').innerHTML = result.token;
-          document.getElementById('expiredTime').innerHTML = result.expired;
+          document.getElementById('accessToken').innerHTML = result.data.token;
+          document.getElementById('expiredTime').innerHTML = result.data.expired;
        }
   });
 }

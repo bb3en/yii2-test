@@ -8,10 +8,13 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 
+use app\assets\RbacAsset;
+RbacAsset::register($this);
+
 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="admin-update-user-popup">
+<div class="admin-update-permission-popup">
 
     <div class="row">
             <div class="col-lg-5">
@@ -22,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <input type="text" name="description" class="form-control" value="<?php echo $model->description?>"><br/>
 
-            <button onclick="updateRbacPermission('')" type="button">儲存</button>
+            <button onclick="updateRbacPermission('<?php echo $model->name?>')" type="button">儲存</button>
 
             </div>
         </div>

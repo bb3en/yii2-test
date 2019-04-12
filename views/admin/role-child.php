@@ -10,13 +10,17 @@ use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Modal;
 use yii\grid\GridView;
 
+use app\assets\RbacAsset;
+RbacAsset::register($this);
+
+
 $this->title = 'RBAC-Role-Child Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?= html::button('Create Role-Child',[
+<?= html::button('Create RoleChild',[
     'value'=>Url::to('create-role-child-popup'),
     'class' => 'btn btn-success',
-    'id' => 'createRole'
+    'id' => 'createRoleChild'
     ]); ?>
 
 <?php
@@ -26,19 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'size' => 'modal-lg',
     ]);
     
-    echo "<div id='modalCreateRoleContent'></div>";
+    echo "<div id='modalCreateRoleChildContent'></div>";
 
     Modal::end();
 ?>
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,       
-    //  'columns' => [
-    //     'id',
-    //      'name',
-    //      'created_at:datetime',
-    //     // ...
-    //  ],
+    'columns' => [
+        'parent',
+        'child',
+        [
+            'class' => 'yii\grid\ActionColumn',
+            'template' => '{delete} ',
+            'buttons' => [
+                'delete'=>function ($url, $model, $key) {
+                    
+                    return Html::button('delete', [ 'class' => 'btn btn-xs btn-danger roleChild-delete-btn','data-parent' => $model->parent,'data-child' => $model->child ]);
+                }
+            ]
+        ],
+     ],
 ]) ?>
 
 </div>

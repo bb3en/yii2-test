@@ -11,6 +11,9 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
 use app\models\ApiForm;
+use function GuzzleHttp\Promise\each;
+
+
 
 class SiteController extends Controller
 {
@@ -40,20 +43,53 @@ class SiteController extends Controller
     //     ];
     // }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function actions()
+    public function actionNotice()
     {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
+        var_dump('1234');
+    }
+
+    public function actionError()
+    { 
+        $exception = Yii::$app->errorHandler->exception;
+        $response = Yii::$app->getResponse();
+  
+        $result =
+            [
+                'code' => $response->statusCode,
+                'message' => $response->statusText,
+                'data' => $response->data,
+            ];
+
+        if ($response->statusCode == 500) {
+            $exception = Yii::$app->getErrorHandler()->exception;
+
+            if (YII_DEBUG) {
+
+                $result =
+                    [
+                        'name' => ($exception instanceof Exception || $exception instanceof ErrorException) ?$exception->getName() : 'Exception',
+                        'type' => get_class($exception),
+                        'file' => $exception->getFile(),
+                        'errorMessage' => $exception->getMessage(),
+                        'line' => $exception->getLine(),
+                        'stack-trace' => explode("\n", $exception->getTraceAsString()),
+                        //'mytest' => explode("\n", $exception->getTraceAsString()),
+                    ];
+                if ($exception instanceof Exception) {
+                    $result['error-info'] = $exception->errorInfo;
+                }
+            } else {
+                if (get_class($exception) == 'yii\\db\\IntegrityException') {
+                    $result['errorMessage'] = $exception->errorInfo;
+                    $result['data'] = get_class($exception);
+                } else {
+                    $result['errorMessage'] = $exception->getMessage();
+                    $result['data'] = get_class($exception);
+                }
+            }
+        }
+        $response->format = yii\web\Response::FORMAT_JSON;
+        return $this->asJson($result);
     }
 
     /**
@@ -69,7 +105,7 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
-  
+
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
@@ -77,12 +113,12 @@ class SiteController extends Controller
                 }
             }
         }
-  
+
         return $this->render('signup', [
             'model' => $model,
         ]);
-    }   
-    
+    }
+
     /**
      * Login action.
      *
@@ -102,7 +138,6 @@ class SiteController extends Controller
             $model->login();
 
             return $this->goBack();
-
         } else {
 
             return $this->render('login', [
@@ -111,7 +146,7 @@ class SiteController extends Controller
         }
     }
 
-  
+
 
     /**
      * Logout action.
@@ -151,5 +186,15 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionAdminlte()
+    {
+        return $this->render('adminlte');
     }
 }

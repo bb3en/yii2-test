@@ -8,6 +8,11 @@ use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\auth\QueryParamAuth;
+use yii\helpers\ArrayHelper;
+
+use yii\web\Response;
+use yii\db\Exception as DbException;
+
 use app\models\User;
 
 class UsersController extends ActiveController
@@ -19,6 +24,7 @@ class UsersController extends ActiveController
         'class' => 'yii\rest\Serializer',
         'collectionEnvelope' => 'items',
     ];*/
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -31,6 +37,7 @@ class UsersController extends ActiveController
             ],
         ];
 
+        $behaviors['contentNegotiator']['formats']['text/html'] = Response::FORMAT_JSON;
         return $behaviors;
     }
 
@@ -38,26 +45,62 @@ class UsersController extends ActiveController
     {
 		$actions = parent::actions();
 
-	    unset($actions['create'],$actions['update']);
+	    unset($actions['create'],$actions['update'],$actions['index']);
 	    
 	    return $actions;
 
     }
 
+    public function actionIndex()
+    {
+        try {
+            $result = User::find()->all();
+
+        } catch (DbException $e) {
+            $result =  [
+                'code' => $e->getCode(),
+                'data' => [],
+                'message' => ''
+            ];
+        } catch (Exception $e) {
+            $result =  [
+                'code' => $e->getCode(),
+                'data' => [],
+                'message' => $e->getMessage()
+            ];
+        }
+        return $result;
+    }
+
     public function actionCreate()
     {   
-        $request = Yii::$app->request->post();
-        if(strrpos($request['username']," ")>0){
-            return false;
-        }
-        $user = new User();
-        $user->username = $request['username'];
-        $user->email = $request['email'];
-        $user->setPassword($request['password']);
-        $user->generateAuthKey();
-        $user->save();
+        // try {
+            $request = Yii::$app->request->post();
+            if(strrpos($request['username']," ")>0){
+                return false;
+            }
+            $user = new User();
+            $user->username = $request['username'];
+            $user->email = $request['email'];
+            $user->setPassword($request['password']);
+            $user->generateAuthKey();
+            $user->save();
+            $result = $user;
 
-        return $user;
+    //    } catch (DbException $e) {
+    //         $result =  [
+    //             'code' => $e->getCode(),
+    //             'data' => '',
+    //             'message' => '重複'
+    //         ];
+    //     } catch (Exception $e) {
+    //         $result =  [
+    //             'code' => $e->getCode(),
+    //             'data' => '',
+    //             'message' => $e->getMessage()
+    //         ];
+    //     }
+        return $result;
     }
     
     public function actionUpdate($id)

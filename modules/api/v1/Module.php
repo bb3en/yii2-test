@@ -2,6 +2,7 @@
 
 namespace app\modules\api\v1;
 
+use yii;
 /**
  * v1 module definition class
  */
@@ -18,7 +19,13 @@ class Module extends \yii\base\Module
     public function init()
     {
         parent::init();
-        \Yii::$app->user->enableSession = false;
+        yii::$app->user->enableSession = false;
         // custom initialization code goes here
+        $response = require __DIR__ . '/../../componets/response.php';
+        yii::configure(\Yii::$app, [
+            'components' => [
+                'response' => $response,
+            ]
+        ]);
     }
 }

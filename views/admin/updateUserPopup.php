@@ -8,6 +8,9 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 
+use app\assets\RbacAsset;
+RbacAsset::register($this);
+
 
 $this->params['breadcrumbs'][] = $this->title;
 ?>

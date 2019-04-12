@@ -9,6 +9,8 @@ use yii\bootstrap\ActiveForm;
 
 use yii\bootstrap\Modal;
 use yii\grid\GridView;
+use app\assets\RbacAsset;
+RbacAsset::register($this);
 
 $this->title = 'RBAC-Permission Manager';
 $this->params['breadcrumbs'][] = $this->title;
@@ -20,17 +22,21 @@ $this->params['breadcrumbs'][] = $this->title;
     'id' => 'createPermission'
     ]); ?>
 
-<?php
-    Modal::begin([
-        'header' => '<h4>Create Permission</h4>',
-        'id' => 'modalCreatePermission' ,
-        'size' => 'modal-lg',
-    ]);
-    
-    echo "<div id='modalCreatePermissionContent'></div>";
-
-    Modal::end();
-?>
+<!-- Modal -->
+<div id="modalCreatePermission" class="fade modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4>Create Permission</h4>
+            </div>
+            <div class="modal-body">
+                <div id="modalCreatePermissionContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal -->
 
 <?php
     Modal::begin([
@@ -49,9 +55,9 @@ $this->params['breadcrumbs'][] = $this->title;
      'columns' => [
         'name',
          'description',
-         'ruleName',
-         'createdAt:datetime',
-         'updatedAt:datetime',
+         'rule_name',
+         'created_at:datetime',
+         'updated_at:datetime',
          [
             'class' => 'yii\grid\ActionColumn',
             'template' => '{update} {delete} ',
