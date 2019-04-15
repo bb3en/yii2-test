@@ -44,7 +44,6 @@ class RbacAssignmentController extends ActiveController
     {
 
         $actions = parent::actions();
-        yii::$app->response->format = 'restful';
         unset($actions['create'],
         $actions['update'],
         $actions['delete'],

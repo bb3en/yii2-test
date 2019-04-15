@@ -53,22 +53,9 @@ class UsersController extends ActiveController
 
     public function actionIndex()
     {
-        try {
-            $result = User::find()->all();
 
-        } catch (DbException $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => ''
-            ];
-        } catch (Exception $e) {
-            $result =  [
-                'code' => $e->getCode(),
-                'data' => [],
-                'message' => $e->getMessage()
-            ];
-        }
+        $result = User::find()->all();
+        $redis = Yii::$app->redis;
         return $result;
     }
 

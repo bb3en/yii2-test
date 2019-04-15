@@ -1,6 +1,7 @@
 <?php
 
 namespace app\modules\api\v1\controllers;
+
 use yii;
 use yii\rest\ActiveController;
 use yii\filters\auth\CompositeAuth;
@@ -11,7 +12,6 @@ use yii\db\BaseActiveRecord;
 use yii\helpers\ArrayHelper;
 
 use yii\web\Response;
-use yii\db\Exception as DbException;
 use app\modules\api\v1\models\RbacItem;
 
 
@@ -39,5 +39,43 @@ class RbacItemController extends ActiveController
         return $behaviors;
     }
 
+    public function actions()
+    {
 
+        $actions = parent::actions();
+        unset($actions['index']);
+        return $actions;
+    }
+
+    public function actionIndex()
+    {
+        $key = 'rbac-item';
+        //--------------
+        //from memcached
+        //--------------
+        // $cache = \Yii::$app->cache;
+        // if ($cache->get($key)) {
+        //     return $cache->get($key);
+        // } else {
+        //     $items = RbacItem::find()->all();
+        //     $cache->add($key, $items, 30);
+        //     return $items;
+        // }
+
+        // --------------
+        // from redis
+        // --------------
+        $redis = Yii::$app->redis;
+        $data = $redis->get($key);
+
+        if (empty($data)) {
+            $data = RbacItem::find()->all();
+            $value = serialize($data);
+            $redis->set($key, $value);
+            $redis->expire($key, 30);
+            return $data;
+        } else {
+            return unserialize($data);
+        }
+    }
 }

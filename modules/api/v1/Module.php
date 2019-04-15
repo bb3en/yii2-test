@@ -25,6 +25,31 @@ class Module extends \yii\base\Module
         yii::configure(\Yii::$app, [
             'components' => [
                 'response' => $response,
+                // 'cache' => [
+                //     'class' => 'yii\redis\Cache',
+                //     'redis' => [
+                //         'hostname' => 'redis.cache',
+                //         'port' => 6379,
+                //         'database' => 0,
+                //     ],
+                // ],
+                'cache' => [
+                    'class' => 'yii\caching\MemCache',
+                    'servers' => [
+                        [
+                            'host' => 'memcached.cache',
+                            'port' => 11211,
+                            'weight' => 60,
+                        ]
+                    ],
+                    'useMemcached' => true,
+                ],
+                'redis' => [
+                    'class' => 'yii\redis\Connection',
+                    'hostname' => 'redis.cache',
+                    'port' => 6379,
+                    'database' => 0,
+                ],
             ]
         ]);
     }

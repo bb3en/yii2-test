@@ -3,7 +3,7 @@
 namespace app\modules\api\v1\models;
 
 use Yii;
-
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "post".
@@ -47,4 +47,5 @@ class Posts extends \yii\db\ActiveRecord
             'own_id' => 'OwnID',
         ];
     }
+
 }

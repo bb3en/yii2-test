@@ -12,6 +12,8 @@ use yii\filters\auth\QueryParamAuth;
 use yii\db\BaseActiveRecord;
 use yii\web\Response;
 use app\components\MyCompositeAuth;
+use app\modules\api\v1\models\Posts;
+
 
 class PostsController extends ActiveController
 {
@@ -36,5 +38,26 @@ class PostsController extends ActiveController
         $behaviors['contentNegotiator']['formats']['text/html'] = Response::FORMAT_JSON;
 
         return $behaviors;
+    }
+
+    public function actions()
+    {
+
+        $actions = parent::actions();
+        unset($actions['index']);
+        return $actions;
+    }
+
+    public function actionIndex()
+    {
+        $cache = \Yii::$app->cache;
+
+        if ($cache->get('posts')) {
+            return $cache->get('posts');
+        } else {
+            $posts = Posts::find()->all();
+            $cache->add('posts', $posts, 30);
+            return $posts;
+        }
     }
 }
