@@ -7,6 +7,7 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 
 use app\assets\RbacAsset;
+
 RbacAsset::register($this);
 
 
@@ -14,8 +15,12 @@ $this->title = 'RBAC-Role Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-
-<button type="button" id="createRole" class="btn btn-success" value="create-role-popup">Create Role</button>
+<div class="d-sm-flex align-items-left justify-content-between mb-4">
+    <button type="button" id="createRole" class="btn btn-success" value="create-role-popup">
+        <i class="fas fa-plus-square"></i>
+        Create Role
+    </button>
+</div>
 
 
 <!-- Modal -->
@@ -50,26 +55,29 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <!-- End Modal -->
 
-<?= GridView::widget([
-    'dataProvider' => $dataProvider,       
-    'columns' => [
-        'name',
-         'description',
-         'rule_name',
-         'created_at:datetime',
-         'updated_at:datetime',
-         [
-            'class' => 'yii\grid\ActionColumn',
-            'template' => '{update} {delete} ',
-            'buttons' => [
-                'update'=>function ($url, $model, $key) {
-                    return Html::button('edit', [ 'value'=>Url::to('update-role-popup?name='. $model->name),'class' => 'btn btn-xs btn-warning role-edit-btn','data-name' => $model->name ]);
-                },
-                'delete'=>function ($url, $model, $key) {
-                    return Html::button('delete', [ 'class' => 'btn btn-xs btn-danger role-delete-btn','data-id' => $model->name,'data-name' => $model->name ]);
-                }
-            ]
-        ],
-     ],
-]) ?>
 
+<!-- Role DataTable -->
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Role DataTable</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <table id="roleDataTable" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Rule Name</th>
+                            <th>Created_At</th>
+                            <th>Updated_At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

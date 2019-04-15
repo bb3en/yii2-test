@@ -13,7 +13,6 @@ $(function () {
                     return deleteButton;
                 }
             },
-
         ],
         "initComplete": function (settings, json) {
             $('.assignment-delete-btn').click(function (e) {
@@ -37,8 +36,8 @@ $(function () {
 });
 
 function createAssignment() {
-    var userId = document.getElementById("userNameSelect").value;
-    var role = document.getElementById("roleSelect").value;
+    var userId = document.getElementById("assignmentUserNameSelect").value;
+    var role = document.getElementById("assignmentRoleSelect").value;
     var data = {
         'userId': userId,
         'role': role
@@ -71,7 +70,7 @@ function fillAssignmentUserNameDropList() {
     
     ajaxRequest(url, '', function (res) {
 
-        fillDropList(res.data, 'userNameSelect', 'username', 'id');
+        fillDropList(res.data, 'assignmentUserNameSelect', 'username', 'id');
     }, 'GET');
 
 };
@@ -79,7 +78,7 @@ function fillAssignmentUserNameDropList() {
 function fillAssignmentRoleDropList() {
     var url = "http://localhost/api/v1/rbac/role";
     ajaxRequest(url, '', function (res) {
-        fillDropList(res.data, 'roleSelect', 'name', 'name');
+        fillDropList(res.data, 'assignmentRoleSelect', 'name', 'name');
     }, 'GET');
 };
 

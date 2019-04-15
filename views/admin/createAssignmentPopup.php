@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-5">
             <label class="control-label">Username</label>
             <br />
-            <select id="userNameSelect"></select>    
+            <select id="assignmentUserNameSelect"></select>    
             <br /><br />
             <label class="control-label">Role</label>
             <br />
-            <select id="roleSelect" ></select>
+            <select id="assignmentRoleSelect" ></select>
             <br /><br />
             <button onclick="createAssignment()" type="button">新增</button>
         </div>

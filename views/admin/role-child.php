@@ -1,31 +1,31 @@
 <?php
 
-/* @var $model app\models\ApiForm */
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-
-use yii\bootstrap\ActiveForm;
-
-use yii\bootstrap\Modal;
 use yii\grid\GridView;
 
 use app\assets\RbacAsset;
+
 RbacAsset::register($this);
 
 $this->title = 'RBAC-Role-Child Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<button type="button" id="createRoleChild" class="btn btn-success" value="create-role-child-popup">Create RoleChild</button>
+<div class="d-sm-flex align-items-left justify-content-between mb-4">
+    <button type="button" id="createRoleChild" class="btn btn-success" value="create-role-child-popup">
+        <i class="fas fa-plus-square"></i>
+        Create RoleChild
+    </button>
+</div>
 
 <!-- Modal -->
 <div id="modalCreateRoleChild" class="fade modal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4>Create Role-Child</h4>
+            <h4>Create Role-Child</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
                 <div id="modalCreateRoleChildContent"></div>
@@ -35,22 +35,26 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <!-- End Modal -->
 
-<?= GridView::widget([
-    'dataProvider' => $dataProvider,       
-    'columns' => [
-        'parent',
-        'child',
-        [
-            'class' => 'yii\grid\ActionColumn',
-            'template' => '{delete} ',
-            'buttons' => [
-                'delete'=>function ($url, $model, $key) {
-                    
-                    return Html::button('delete', [ 'class' => 'btn btn-xs btn-danger roleChild-delete-btn','data-parent' => $model->parent,'data-child' => $model->child ]);
-                }
-            ]
-        ],
-     ],
-]) ?>
 
+<!-- Assignment DataTable -->
 
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Role-Child DataTable</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <table id="role-childDataTable" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Parent</th>
+                            <th>Child</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

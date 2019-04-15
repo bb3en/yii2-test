@@ -43,7 +43,7 @@ class RbacRoleChildController extends ActiveController
     {
         $actions = parent::actions();
 
-        unset($actions['create'], $actions['delete'], $actions['view'], $actions['index']);
+        unset($actions['create'], $actions['delete'], $actions['view']);
 
         return $actions;
     }

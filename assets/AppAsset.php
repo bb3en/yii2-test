@@ -64,6 +64,7 @@ class AppAsset extends AssetBundle
         // 'sb-admin/js/demo/chart-pie-demo.js',
         'js/jquery.dataTables.min.js',
         'js/dataTables.bootstrap4.min.js',
+        'js/moment-with-locales.js',
         'js/share.js',
         'js/user.js',
     ];

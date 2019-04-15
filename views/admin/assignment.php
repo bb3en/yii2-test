@@ -13,8 +13,12 @@ $this->title = 'RBAC-Assignment Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-
-<button type="button" id="createAssignment" class="btn btn-success" value="create-assignment-popup">Create Assignment</button>
+<div class="d-sm-flex align-items-left justify-content-between mb-4">
+    <button type="button" id="createAssignment" class="btn btn-success" value="create-assignment-popup">
+        <i class="fas fa-plus-square"></i>
+        Create Assignment
+    </button>
+</div>
 
 <!-- Modal -->
 <div id="modalCreateAssignment" class="fade modal" role="dialog" tabindex="-1">
@@ -32,9 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 <!-- End Modal -->
-<br /><br />
 
-
+<!-- Assignment DataTable -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Assignment DataTable</h6>

@@ -10,8 +10,12 @@ $this->title = 'User Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-
-<button type="button" id="createUser" class="btn btn-success" value="create-user-popup">Create User</button>
+<div class="d-sm-flex align-items-left justify-content-between mb-4">
+    <button type="button" id="createUser" class="btn btn-success" value="create-user-popup">
+        <i class="fas fa-plus-square"></i>
+        Create User
+    </button>
+</div>
 
 <!-- Modal -->
 <div id="modalCreateUser" class="fade modal" role="dialog" tabindex="-1">
@@ -46,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- End Modal -->
 
 <?= GridView::widget([
-    'dataProvider' => $dataProvider,       
+    'dataProvider' => $dataProvider,
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
         'id',
@@ -56,16 +60,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'class' => 'yii\grid\ActionColumn',
             'template' => '{update} {delete} ',
             'buttons' => [
-                'update'=>function ($url, $model, $key) {
-                    return Html::button('edit', [ 'value'=>Url::to('update-user-popup?id='. $model->id),'class' => 'btn btn-xs btn-warning user-edit-btn','data-id' => $model->id ]);
+                'update' => function ($url, $model, $key) {
+                    return Html::button('edit', ['value' => Url::to('update-user-popup?id=' . $model->id), 'class' => 'btn btn-xs btn-warning user-edit-btn', 'data-id' => $model->id]);
                 },
-                'delete'=>function ($url, $model, $key) {
-                    return Html::button('delete', [ 'class' => 'btn btn-xs btn-danger user-delete-btn','data-id' => $model->id,'data-name' => $model->username ]);
+                'delete' => function ($url, $model, $key) {
+                    return Html::button('delete', ['class' => 'btn btn-xs btn-danger user-delete-btn', 'data-id' => $model->id, 'data-name' => $model->username]);
                 }
             ]
         ],
     ],
 ]) ?>
-
-
-

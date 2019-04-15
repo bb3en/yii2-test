@@ -7,13 +7,19 @@ use yii\helpers\Url;
 
 use yii\grid\GridView;
 use app\assets\RbacAsset;
+
 RbacAsset::register($this);
 
 $this->title = 'RBAC-Permission Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<button type="button" id="createPermission" class="btn btn-success" value="create-permission-popup">Create Permission</button>
+<div class="d-sm-flex align-items-left justify-content-between mb-4">
+    <button type="button" id="createPermission" class="btn btn-success" value="create-permission-popup">
+        <i class="fas fa-plus-square"></i>
+        Create Permission
+    </button>
+</div>
 
 <!-- Modal -->
 <div id="modalCreatePermission" class="fade modal" role="dialog" tabindex="-1">
@@ -36,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div id="modalEditPermission" class="fade modal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            
+
             <div class="modal-header">
                 <h4>Edit Permission</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -49,26 +55,28 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <!-- End Modal -->
 
-<?= GridView::widget([
-    'dataProvider' => $dataProvider,       
-     'columns' => [
-        'name',
-         'description',
-         'rule_name',
-         'created_at:datetime',
-         'updated_at:datetime',
-         [
-            'class' => 'yii\grid\ActionColumn',
-            'template' => '{update} {delete} ',
-            'buttons' => [
-                'update'=>function ($url, $model, $key) {
-                    return Html::button('edit', [ 'value'=>Url::to('update-permission-popup?name='. $model->name),'class' => 'btn btn-xs btn-warning permission-edit-btn','data-name' => $model->name ]);
-                },
-                'delete'=>function ($url, $model, $key) {
-                    return Html::button('delete', [ 'class' => 'btn btn-xs btn-danger permission-delete-btn','data-id' => $model->name,'data-name' => $model->name ]);
-                }
-            ]
-        ],
-     ],
-]) ?>
+<!-- Permission DataTable -->
 
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Permission DataTable</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <table id="permissionDataTable" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Rule Name</th>
+                            <th>Created_At</th>
+                            <th>Updated_At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
