@@ -196,13 +196,5 @@ class SiteController extends Controller
     {
         return $this->render('old');
     }
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAdminlte()
-    {
-        return $this->render('adminlte');
-    }
+
 }

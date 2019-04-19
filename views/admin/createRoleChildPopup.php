@@ -9,9 +9,8 @@ use yii\helpers\Html;
 use yii\captcha\Captcha;
 use yii\helpers\ArrayHelper;
 
-use app\assets\RbacAsset;
-
-RbacAsset::register($this);
+use app\bundles\packages\AdminAsset;
+AdminAsset::register($this);
 
 
 $this->params['breadcrumbs'][] = $this->title;

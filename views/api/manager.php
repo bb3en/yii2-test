@@ -5,6 +5,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
+use app\bundles\BaseAsset;
+BaseAsset::register($this);
 
 $this->title = 'API Manager';
 $this->params['breadcrumbs'][] = $this->title;

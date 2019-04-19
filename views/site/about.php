@@ -4,6 +4,9 @@
 
 use yii\helpers\Html;
 
+use app\bundles\BaseAsset;
+BaseAsset::register($this);
+
 $this->title = 'About';
 $this->params['breadcrumbs'][] = $this->title;
 ?>

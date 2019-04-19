@@ -5,13 +5,13 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 
-use app\assets\RbacAsset;
-
-RbacAsset::register($this);
+use app\bundles\packages\AdminAsset;
+AdminAsset::register($this);
 
 $this->title = 'RBAC-Role-Child Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="d-sm-flex align-items-left justify-content-between mb-4">
     <button type="button" id="createRoleChild" class="btn btn-success" value="create-role-child-popup">
         <i class="fas fa-plus-square"></i>
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- End Modal -->
 
 
-<!-- Assignment DataTable -->
+<!-- Role-Child DataTable -->
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">

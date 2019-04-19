@@ -6,9 +6,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 
-use app\assets\RbacAsset;
-
-RbacAsset::register($this);
+use app\bundles\packages\AdminAsset;
+AdminAsset::register($this);
 
 
 $this->title = 'RBAC-Role Manager';
@@ -21,7 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
         Create Role
     </button>
 </div>
-
 
 <!-- Modal -->
 <div id="modalCreateRole" class="fade modal" role="dialog" tabindex="-1">
@@ -55,9 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <!-- End Modal -->
 
-
 <!-- Role DataTable -->
-
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Role DataTable</h6>

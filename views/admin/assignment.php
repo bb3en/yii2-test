@@ -5,9 +5,8 @@ use yii\helpers\Url;
 
 use yii\grid\GridView;
 
-use app\assets\RbacAsset;
-
-RbacAsset::register($this);
+use app\bundles\packages\AdminAsset;
+AdminAsset::register($this);
 
 $this->title = 'RBAC-Assignment Manager';
 $this->params['breadcrumbs'][] = $this->title;

@@ -6,10 +6,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 use yii\grid\GridView;
-use app\assets\RbacAsset;
-
-RbacAsset::register($this);
-
+//use app\assets\RbacAsset;
+use app\bundles\packages\AdminAsset;
+AdminAsset::register($this);
 $this->title = 'RBAC-Permission Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -37,12 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <!-- End Modal -->
 
-
 <!-- Modal -->
 <div id="modalEditPermission" class="fade modal" role="dialog" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
             <div class="modal-header">
                 <h4>Edit Permission</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

@@ -8,9 +8,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
-
 <div class="admin-create-role-child-popup">
-
     <div class="row">
         <div class="col-lg-5">
             <label class="control-label">Username</label>
